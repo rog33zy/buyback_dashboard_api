@@ -1,18 +1,43 @@
 from functools import partial
 from rest_framework import generics, status
-from .serializers import BuybackDataSerializer
+from .serializers import BuybackDataSerializer, BuybackDataSerializerTwo
 from .models import BuybackData
 
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 
 from django.http.response import JsonResponse
+from django.db.models import Sum
 
 
 class BuybackDataListView(generics.ListAPIView):
-    queryset = BuybackData.objects.all()
-    serializer_class = BuybackDataSerializer
+
     filterset_fields = ["category", "season", "crop", "variety"]
+
+    def get_serializer_class(self):
+        category_param = self.request.query_params.get("category")
+
+        if category_param is None:
+            return BuybackDataSerializerTwo
+        return BuybackDataSerializer
+
+    def get_queryset(self):
+        category_param = self.request.query_params.get("category")
+        if category_param is None:
+            queryset = (
+                BuybackData.objects.values(
+                    "category",
+                )
+                .order_by("category")
+                .annotate(
+                    total_yield_estimate=Sum("yields_estimates_weight_mt"),
+                    total_actual_yield=Sum("actual_yields_weight_mt"),
+                )
+            )
+
+        else:
+            queryset = BuybackData.objects.all().order_by("camp")
+        return queryset
 
 
 @api_view(["POST"])

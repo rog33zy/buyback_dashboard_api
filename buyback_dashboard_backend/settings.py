@@ -28,7 +28,7 @@ SECRET_KEY = "86scpy2yhg(q4=ju-poi9o_ci95ldnsq3w8@j4%t2o-@qk#na$"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "accounts",
     "buyback_data",
     "django_filters",
+    "corsheaders",
 ]
 
 
@@ -55,6 +56,7 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -128,6 +130,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://192.168.52.176:3000"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

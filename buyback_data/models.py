@@ -13,6 +13,7 @@ class BuybackData(models.Model):
     class CropOptions(models.TextChoices):
         SOYBEANS = "soybeans", _("Soybeans")
         GROUNDNUTS = "groundnuts", _("Groundnuts")
+        BEANS = "beans", _("Beans")
         COWPEAS = "cowpeas", _("Cowpeas")
 
     class VarietyOptions(models.TextChoices):
@@ -51,6 +52,7 @@ class BuybackData(models.Model):
     yields_estimates_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     actual_yields_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     total_purchased_amount = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    last_updated = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
-        return f"{self.camp}-{self.season}-{self.crop}-{self.variety}"
+        return f"{self.category}-{self.camp}-{self.season}-{self.crop}-{self.variety}"
