@@ -130,7 +130,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://192.168.52.176:3000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://172.23.32.4:3000"]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

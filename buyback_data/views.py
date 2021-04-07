@@ -19,6 +19,7 @@ class BuybackDataListView(generics.ListAPIView):
 
         if category_param is None:
             return BuybackDataSerializerTwo
+
         return BuybackDataSerializer
 
     def get_queryset(self):
@@ -52,7 +53,7 @@ def post_category_view(request):
         return JsonResponse(buyback_entry_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(["PATCH"])
+@api_view(["PATCH", "DELETE"])
 def edit_category_view(request, pk):
     try:
         detailed_buyback_entry = BuybackData.objects.get(pk=pk)
@@ -66,4 +67,8 @@ def edit_category_view(request, pk):
         if buyback_entry_serializer.is_valid():
             buyback_entry_serializer.save()
             return JsonResponse(buyback_entry_serializer.data, status=status.HTTP_200_OK)
+
+    elif request.method == "DELETE":
+        detailed_buyback_entry.delete()
+        return JsonResponse({"message": "Entry was deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
     return JsonResponse(buyback_entry_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
