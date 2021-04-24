@@ -1,6 +1,6 @@
 from functools import partial
 from rest_framework import generics, status
-from .serializers import BuybackDataSerializer, BuybackDataSerializerTwo
+from .serializers import BuybackDataSerializer, BuybackDataSerializerTwo, BuybackDataSerializerThree
 from .models import BuybackData
 
 from rest_framework.decorators import api_view
@@ -16,14 +16,26 @@ class BuybackDataListView(generics.ListAPIView):
 
     def get_serializer_class(self):
         category_param = self.request.query_params.get("category")
+        crop_param = self.request.query_params.get("crop")
+        season_param = self.request.query_params.get("season")
+        variety_param = self.request.query_params.get("variety")
 
         if category_param is None:
             return BuybackDataSerializerTwo
 
-        return BuybackDataSerializer
+        elif (category_param == "seed" or category_param == "source" or category_param == "commercial") and (
+            crop_param is None or season_param is None or variety_param is None
+        ):
+            return BuybackDataSerializerThree
+
+        else:
+            return BuybackDataSerializer
 
     def get_queryset(self):
         category_param = self.request.query_params.get("category")
+        crop_param = self.request.query_params.get("crop")
+        season_param = self.request.query_params.get("season")
+        variety_param = self.request.query_params.get("variety")
         if category_param is None:
             queryset = (
                 BuybackData.objects.values(
@@ -33,6 +45,34 @@ class BuybackDataListView(generics.ListAPIView):
                 .annotate(
                     total_yield_estimate=Sum("yields_estimates_weight_mt"),
                     total_actual_yield=Sum("actual_yields_weight_mt"),
+                )
+            )
+
+        elif (category_param == "seed") and (crop_param is None or season_param is None or variety_param is None):
+            queryset = (
+                BuybackData.objects.values(
+                    "camp",
+                )
+                .order_by("camp")
+                .annotate(
+                    total_yield_estimate=Sum("yields_estimates_weight_mt"),
+                    total_actual_yield=Sum("actual_yields_weight_mt"),
+                    total_amount_purchased=Sum("total_purchased_amount"),
+                )
+            )
+
+        elif (category_param == "commercial" or category_param == "source") and (
+            crop_param is None or season_param is None or variety_param is None
+        ):
+            queryset = (
+                BuybackData.objects.values(
+                    "field_supervisor",
+                )
+                .order_by("field_supervisor")
+                .annotate(
+                    total_yield_estimate=Sum("yields_estimates_weight_mt"),
+                    total_actual_yield=Sum("actual_yields_weight_mt"),
+                    total_amount_purchased=Sum("total_purchased_amount"),
                 )
             )
 
