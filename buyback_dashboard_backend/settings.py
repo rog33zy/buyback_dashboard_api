@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "q_2w2vg&3*(zeb59vlyml%xid3(+9shux@y$*+2sb4r-7aqe3x"
 
-SECRET_KEY = get_env_value("SECRET_KEY")
+SECRET_KEY = bool(get_env_value("SECRET_KEY"))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -135,9 +135,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://172.26.131.202:3000"]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://192.168.86.228:3000",
+    "localhost",
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
