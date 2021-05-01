@@ -15,9 +15,12 @@ class BuybackData(models.Model):
         GROUNDNUTS = "groundnuts", _("Groundnuts")
         BEANS = "beans", _("Beans")
         COWPEAS = "cowpeas", _("Cowpeas")
+        PIGEON_PEA = "pigeon_pea", _("Pigeon-Pea")
+        GREEN_GRAM = "green_gram", _("Green-Gram")
 
     class VarietyOptions(models.TextChoices):
         KAFUE = "kafue", _("Kafue")
+        TGX = "tgx", _("TGX")
         MGV4 = "mgv4", _("MGV4")
         MGV5 = "mgv5", _("MGV5")
         MGV7 = "mgv7", _("MGV7")
@@ -28,6 +31,7 @@ class BuybackData(models.Model):
         CHISHANGO = "chishango", _("Chishango")
         LUTEMBWE = "lutembwe", _("Lutembwe")
         BUBEBE = "bubebe", _("Bubebe")
+        BLACK_EYED = "black_eyed", _("Black-Eyed")
         MSANDILE = "msandile", _("Msandile")
         MADAGASCAR = "madagascar", _("Madagascar")
         KABULANGETI = "kabulangeti", _("Kabulangeti")
@@ -36,6 +40,8 @@ class BuybackData(models.Model):
         KALUNGU = "kalungu", _("Kalungu")
         MBERESHI = "mbereshi", _("Mbereshi")
         LUNGWE_BUNGU = "lungwe_bungu", _("Lungwe-Bungu")
+        MTHAWA_JUNE = "mthawa_june", _("Mthawa-June")
+        SHENI = "sheni", _("Sheni")
 
     class SeasonOptions(models.TextChoices):
         TWENTY_NINETEEN_TWENTY_TWENTY = "2019_2020", _("2019-2020")

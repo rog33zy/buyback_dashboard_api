@@ -23,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = "q_2w2vg&3*(zeb59vlyml%xid3(+9shux@y$*+2sb4r-7aqe3x"
 
-SECRET_KEY = bool(get_env_value("SECRET_KEY"))
+SECRET_KEY = get_env_value("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(get_env_value("DEBUG_VALUE"))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -137,8 +137,7 @@ USE_TZ = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://192.168.86.228:3000",
-    "localhost",
+    "http://192.168.87.40:3000",
 ]
 
 # Static files (CSS, JavaScript, Images)
