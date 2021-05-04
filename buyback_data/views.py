@@ -45,6 +45,10 @@ class BuybackDataListView(generics.ListAPIView):
                 .annotate(
                     total_yield_estimate=Sum("yields_estimates_weight_mt"),
                     total_actual_yield=Sum("actual_yields_weight_mt"),
+                    total_amount_purchased_zmw=Sum("total_purchased_amount_zmw"),
+                    total_amount_purchased_usd=Sum("total_purchased_amount_usd"),
+                    total_farmers_bought_from=Sum("total_farmers_purchased_from"),
+                    total_hectares_bought_from=Sum("total_hectares_purchased_from"),
                 )
             )
 
@@ -57,7 +61,10 @@ class BuybackDataListView(generics.ListAPIView):
                 .annotate(
                     total_yield_estimate=Sum("yields_estimates_weight_mt"),
                     total_actual_yield=Sum("actual_yields_weight_mt"),
-                    total_amount_purchased=Sum("total_purchased_amount"),
+                    total_amount_purchased_zmw=Sum("total_purchased_amount_zmw"),
+                    total_amount_purchased_usd=Sum("total_purchased_amount_usd"),
+                    total_farmers_bought_from=Sum("total_farmers_purchased_from"),
+                    total_hectares_bought_from=Sum("total_hectares_purchased_from"),
                 )
             )
 
@@ -72,7 +79,10 @@ class BuybackDataListView(generics.ListAPIView):
                 .annotate(
                     total_yield_estimate=Sum("yields_estimates_weight_mt"),
                     total_actual_yield=Sum("actual_yields_weight_mt"),
-                    total_amount_purchased=Sum("total_purchased_amount"),
+                    total_amount_purchased_zmw=Sum("total_purchased_amount_zmw"),
+                    total_amount_purchased_usd=Sum("total_purchased_amount_usd"),
+                    total_farmers_bought_from=Sum("total_farmers_purchased_from"),
+                    total_hectares_bought_from=Sum("total_hectares_purchased_from"),
                 )
             )
 

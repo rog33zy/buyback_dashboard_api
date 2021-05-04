@@ -57,7 +57,10 @@ class BuybackData(models.Model):
     field_supervisor = models.CharField(max_length=100, blank=True)
     yields_estimates_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     actual_yields_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    total_purchased_amount = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    total_farmers_purchased_from = models.PositiveIntegerField(default=0)
+    total_hectares_purchased_from = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    total_purchased_amount_zmw = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    total_purchased_amount_usd = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     last_updated = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
