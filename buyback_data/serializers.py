@@ -16,12 +16,14 @@ class BuybackDataSerializerTwo(serializers.ModelSerializer):
     total_amount_purchased_usd = serializers.DecimalField(decimal_places=2, max_digits=12)
     total_hectares_bought_from = serializers.DecimalField(decimal_places=2, max_digits=8)
     total_farmers_bought_from = serializers.IntegerField()
+    all_farmers = serializers.IntegerField()
 
     class Meta:
         model = BuybackData
         fields = (
             "id",
             "category",
+            "all_farmers",
             "total_farmers_bought_from",
             "total_hectares_bought_from",
             "total_amount_purchased_zmw",
@@ -39,12 +41,14 @@ class BuybackDataSerializerThree(serializers.ModelSerializer):
     total_amount_purchased_usd = serializers.DecimalField(decimal_places=2, max_digits=12)
     total_hectares_bought_from = serializers.DecimalField(decimal_places=2, max_digits=8)
     total_farmers_bought_from = serializers.IntegerField()
+    all_farmers = serializers.IntegerField()
 
     class Meta:
         model = BuybackData
         fields = (
             "field_supervisor",
             "camp",
+            "all_farmers",
             "total_farmers_bought_from",
             "total_hectares_bought_from",
             "total_amount_purchased_zmw",
