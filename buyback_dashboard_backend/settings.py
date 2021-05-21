@@ -29,7 +29,11 @@ SECRET_KEY = get_env_value("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(get_env_value("DEBUG_VALUE"))
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    ".goodnatureagro.com",
+    "178.62.98.243",
+    "localhost",
+]
 
 
 # Application definition
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
     "buyback_data",
     "django_filters",
     "corsheaders",
+    "processing_data",
 ]
 
 
@@ -137,7 +142,7 @@ USE_TZ = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://172.27.79.146:3000",
+    "http://172.19.131.120:3000",
 ]
 
 # Static files (CSS, JavaScript, Images)

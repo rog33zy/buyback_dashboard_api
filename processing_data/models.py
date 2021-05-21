@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
-class BuybackData(models.Model):
+class ProcessingData(models.Model):
     class CategoryOptions(models.TextChoices):
         SOURCE = "source", _("Source")
         SEED = "seed", _("Seed")
@@ -55,15 +55,13 @@ class BuybackData(models.Model):
     )
     camp = models.CharField(max_length=50, blank=True)
     field_supervisor = models.CharField(max_length=100, blank=True)
-    yields_estimates_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    actual_yields_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    total_farmers = models.PositiveIntegerField(default=0)
-    total_farmers_purchased_from = models.PositiveIntegerField(default=0)
-    total_hectares_purchased_from = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    total_purchased_amount_zmw = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    total_purchased_amount_usd = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    paid_amount_zmw = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    paid_amount_usd = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    purchased_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    received_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    processed_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    cleaned_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    sorts_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    waste_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    hq_to_lsk = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     last_updated = models.DateField(auto_now=True)
 
     def __str__(self) -> str:
