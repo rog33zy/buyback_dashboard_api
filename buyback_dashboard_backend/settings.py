@@ -27,7 +27,7 @@ SECRET_KEY = get_env_value("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(get_env_value("DEBUG_VALUE"))
+DEBUG = False
 
 ALLOWED_HOSTS = [
     ".goodnatureagro.com",
