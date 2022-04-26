@@ -46,12 +46,13 @@ class ProcessingData(models.Model):
     class SeasonOptions(models.TextChoices):
         TWENTY_NINETEEN_TWENTY_TWENTY = "2019_2020", _("2019-2020")
         TWENTY_TWENTY_TWENTY_TWENTY_ONE = "2020_2021", _("2020-2021")
+        TWENTY_TWENTY_ONE_TWENTY_TWENTY_TWO = "2021_2022", _("2021-2022")
 
     category = models.CharField(max_length=30, choices=CategoryOptions.choices, default=CategoryOptions.SEED)
     crop = models.CharField(max_length=30, choices=CropOptions.choices, default=CropOptions.SOYBEANS)
     variety = models.CharField(max_length=30, choices=VarietyOptions.choices, default=VarietyOptions.KAFUE)
     season = models.CharField(
-        max_length=30, choices=SeasonOptions.choices, default=SeasonOptions.TWENTY_TWENTY_TWENTY_TWENTY_ONE
+        max_length=30, choices=SeasonOptions.choices, default=SeasonOptions.TWENTY_TWENTY_ONE_TWENTY_TWENTY_TWO
     )
     camp = models.CharField(max_length=50, blank=True)
     field_supervisor = models.CharField(max_length=100, blank=True)
