@@ -20,7 +20,7 @@ media
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
-
+django_static/
 # C extensions
 *.so
 

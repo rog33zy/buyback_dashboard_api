@@ -42,16 +42,24 @@ class ProcessingData(models.Model):
         LUNGWE_BUNGU = "lungwe_bungu", _("Lungwe-Bungu")
         MTHAWA_JUNE = "mthawa_june", _("Mthawa-June")
         SHENI = "sheni", _("Sheni")
+        Tikolore = "tikolore", _("Tikolore")
+        Lui = "lui", _("Lui")
+        Lua_45 = "lua_45", _("Lua-45")
+        LUNGA = "lunga", _("Lunga")
+        Machili = "machili", _("Machili")
+        GNA_101 = "gna_101", _("GNA-101")
 
     class SeasonOptions(models.TextChoices):
         TWENTY_NINETEEN_TWENTY_TWENTY = "2019_2020", _("2019-2020")
         TWENTY_TWENTY_TWENTY_TWENTY_ONE = "2020_2021", _("2020-2021")
+        TWENTY_TWENTY_ONE_TWENTY_TWENTY_TWO = "2021_2022", _("2021-2022")
+        TWENTY_TWENTY_TWO_TWENTY_TWENTY_THREE = "2022_2023", _("2022-2023")
 
     category = models.CharField(max_length=30, choices=CategoryOptions.choices, default=CategoryOptions.SEED)
     crop = models.CharField(max_length=30, choices=CropOptions.choices, default=CropOptions.SOYBEANS)
     variety = models.CharField(max_length=30, choices=VarietyOptions.choices, default=VarietyOptions.KAFUE)
     season = models.CharField(
-        max_length=30, choices=SeasonOptions.choices, default=SeasonOptions.TWENTY_TWENTY_TWENTY_TWENTY_ONE
+        max_length=30, choices=SeasonOptions.choices, default=SeasonOptions.TWENTY_TWENTY_TWO_TWENTY_TWENTY_THREE
     )
     camp = models.CharField(max_length=50, blank=True)
     field_supervisor = models.CharField(max_length=100, blank=True)
