@@ -2,12 +2,14 @@ from django.db import models
 
 from django.utils.translation import gettext_lazy as _
 
+
 # Create your models here.
 class ProcessingData(models.Model):
     class CategoryOptions(models.TextChoices):
         SOURCE = "source", _("Source")
         SEED = "seed", _("Seed")
         COMMERCIAL = "commercial", _("Commercial")
+        MALAWI = "malawi", _("Malawi")
         OTHER = "foundation_farm", _("Foundation Farm")
 
     class CropOptions(models.TextChoices):
@@ -54,17 +56,30 @@ class ProcessingData(models.Model):
         TWENTY_TWENTY_TWENTY_TWENTY_ONE = "2020_2021", _("2020-2021")
         TWENTY_TWENTY_ONE_TWENTY_TWENTY_TWO = "2021_2022", _("2021-2022")
         TWENTY_TWENTY_TWO_TWENTY_TWENTY_THREE = "2022_2023", _("2022-2023")
-    category = models.CharField(max_length=30, choices=CategoryOptions.choices, default=CategoryOptions.SEED)
-    crop = models.CharField(max_length=30, choices=CropOptions.choices, default=CropOptions.SOYBEANS)
-    variety = models.CharField(max_length=30, choices=VarietyOptions.choices, default=VarietyOptions.KAFUE)
+
+    category = models.CharField(
+        max_length=30, choices=CategoryOptions.choices, default=CategoryOptions.SEED
+    )
+    crop = models.CharField(
+        max_length=30, choices=CropOptions.choices, default=CropOptions.SOYBEANS
+    )
+    variety = models.CharField(
+        max_length=30, choices=VarietyOptions.choices, default=VarietyOptions.KAFUE
+    )
     season = models.CharField(
-        max_length=30, choices=SeasonOptions.choices, default=SeasonOptions.TWENTY_TWENTY_TWO_TWENTY_TWENTY_THREE
+        max_length=30,
+        choices=SeasonOptions.choices,
+        default=SeasonOptions.TWENTY_TWENTY_TWO_TWENTY_TWENTY_THREE,
     )
     camp = models.CharField(max_length=50, blank=True)
     field_supervisor = models.CharField(max_length=100, blank=True)
-    purchased_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    purchased_weight_mt = models.DecimalField(
+        default=0, decimal_places=2, max_digits=10
+    )
     received_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
-    processed_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    processed_weight_mt = models.DecimalField(
+        default=0, decimal_places=2, max_digits=10
+    )
     cleaned_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     sorts_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     waste_weight_mt = models.DecimalField(default=0, decimal_places=2, max_digits=10)

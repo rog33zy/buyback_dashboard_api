@@ -17,7 +17,9 @@ class SafeJWTAuthentication(BaseAuthentication):
 
         try:
             access_token = authorization_header.split(" ")[1]
-            payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=["HS256"])
+            payload = jwt.decode(
+                access_token, settings.SECRET_KEY, algorithms=["HS256"]
+            )
 
         except jwt.ExpiredSignatureError:
             raise exceptions.AuthenticationFailed("access_token expired")
@@ -32,6 +34,7 @@ class SafeJWTAuthentication(BaseAuthentication):
         is_foundation_farm_admin = user["is_foundation_farm_admin"]
         is_commercial_farmers_admin = user["is_commercial_farmers_admin"]
         is_field_finance_admin = user["is_field_finance_admin"]
+        is_malawi_admin = user["is_malawi_admin"]
 
         user = User(
             is_authenticated=is_authenticated,
@@ -39,6 +42,7 @@ class SafeJWTAuthentication(BaseAuthentication):
             is_foundation_farm_admin=is_foundation_farm_admin,
             is_commercial_farmers_admin=is_commercial_farmers_admin,
             is_field_finance_admin=is_field_finance_admin,
+            is_malawi_admin=is_malawi_admin,
         )
 
         return (user, None)

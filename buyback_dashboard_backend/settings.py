@@ -27,12 +27,13 @@ SECRET_KEY = get_env_value("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     ".goodnatureagro.com",
     "178.62.98.243",
     "localhost",
+    "127.0.0.1",
 ]
 
 
@@ -55,7 +56,9 @@ INSTALLED_APPS = [
 
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("accounts.authentication.SafeJWTAuthentication",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "accounts.authentication.SafeJWTAuthentication",
+    ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
@@ -141,6 +144,7 @@ USE_TZ = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://127.0.0.1:3000",
     "http://172.19.131.120:3000",
 ]
 

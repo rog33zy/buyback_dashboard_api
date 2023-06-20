@@ -1,6 +1,10 @@
 from functools import partial
 from rest_framework import generics, status
-from .serializers import ProcessingDataSerializer, ProcessingDataSerializerTwo, ProcessingDataSerializerThree
+from .serializers import (
+    ProcessingDataSerializer,
+    ProcessingDataSerializerTwo,
+    ProcessingDataSerializerThree,
+)
 from .models import ProcessingData
 
 from rest_framework.decorators import api_view
@@ -11,7 +15,6 @@ from django.db.models import Sum
 
 
 class ProcessingDataListView(generics.ListAPIView):
-
     filterset_fields = ["category", "season", "crop", "variety"]
 
     def get_serializer_class(self):
@@ -23,9 +26,12 @@ class ProcessingDataListView(generics.ListAPIView):
         if category_param is None:
             return ProcessingDataSerializerTwo
 
-        elif (category_param == "seed" or category_param == "source" or category_param == "commercial") and (
-            crop_param is None or season_param is None or variety_param is None
-        ):
+        elif (
+            category_param == "seed"
+            or category_param == "source"
+            or category_param == "commercial"
+            or category_param == "malawi"
+        ) and (crop_param is None or season_param is None or variety_param is None):
             return ProcessingDataSerializerThree
 
         else:
@@ -53,7 +59,9 @@ class ProcessingDataListView(generics.ListAPIView):
                 )
             )
 
-        elif (category_param == "seed") and (crop_param is None or season_param is None or variety_param is None):
+        elif (category_param == "seed") and (
+            crop_param is None or season_param is None or variety_param is None
+        ):
             queryset = (
                 ProcessingData.objects.values(
                     "camp",
@@ -70,9 +78,11 @@ class ProcessingDataListView(generics.ListAPIView):
                 )
             )
 
-        elif (category_param == "commercial" or category_param == "source") and (
-            crop_param is None or season_param is None or variety_param is None
-        ):
+        elif (
+            category_param == "commercial"
+            or category_param == "source"
+            or category_param == "malawi"
+        ) and (crop_param is None or season_param is None or variety_param is None):
             queryset = (
                 ProcessingData.objects.values(
                     "field_supervisor",
@@ -96,14 +106,19 @@ class ProcessingDataListView(generics.ListAPIView):
 
 @api_view(["POST"])
 def post_category_view(request):
-
     if request.method == "POST":
         processing_entry_data = JSONParser().parse(request)
-        processing_entry_serializer = ProcessingDataSerializer(data=processing_entry_data)
+        processing_entry_serializer = ProcessingDataSerializer(
+            data=processing_entry_data
+        )
         if processing_entry_serializer.is_valid():
             processing_entry_serializer.save()
-            return JsonResponse(processing_entry_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(processing_entry_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(
+                processing_entry_serializer.data, status=status.HTTP_201_CREATED
+            )
+        return JsonResponse(
+            processing_entry_serializer.errors, status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @api_view(["PATCH", "DELETE"])
@@ -111,7 +126,9 @@ def edit_category_view(request, pk):
     try:
         detailed_processing_entry = ProcessingData.objects.get(pk=pk)
     except ProcessingData.DoesNotExist:
-        return JsonResponse({"message": "The request does not exist"}, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse(
+            {"message": "The request does not exist"}, status=status.HTTP_404_NOT_FOUND
+        )
 
     if request.method == "PATCH":
         processing_entry_data = JSONParser().parse(request)
@@ -121,9 +138,16 @@ def edit_category_view(request, pk):
 
         if processing_entry_serializer.is_valid():
             processing_entry_serializer.save()
-            return JsonResponse(processing_entry_serializer.data, status=status.HTTP_200_OK)
+            return JsonResponse(
+                processing_entry_serializer.data, status=status.HTTP_200_OK
+            )
 
     elif request.method == "DELETE":
         detailed_processing_entry.delete()
-        return JsonResponse({"message": "Entry was deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
-    return JsonResponse(processing_entry_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(
+            {"message": "Entry was deleted successfully!"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+    return JsonResponse(
+        processing_entry_serializer.errors, status=status.HTTP_400_BAD_REQUEST
+    )
