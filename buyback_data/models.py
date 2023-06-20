@@ -54,7 +54,6 @@ class BuybackData(models.Model):
         TWENTY_TWENTY_TWENTY_TWENTY_ONE = "2020_2021", _("2020-2021")
         TWENTY_TWENTY_ONE_TWENTY_TWENTY_TWO = "2021_2022", _("2021-2022")
         TWENTY_TWENTY_TWO_TWENTY_TWENTY_THREE = "2022_2023", _("2022-2023")
-
     category = models.CharField(max_length=30, choices=CategoryOptions.choices, default=CategoryOptions.SEED)
     crop = models.CharField(max_length=30, choices=CropOptions.choices, default=CropOptions.SOYBEANS)
     variety = models.CharField(max_length=30, choices=VarietyOptions.choices, default=VarietyOptions.KAFUE)
